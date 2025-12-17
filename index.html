@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AcoderM Web App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; color: white; padding: 20px;
+        }
+        .header { text-align: center; margin-bottom: 25px; }
+        .logo { font-size: 50px; }
+        .user-info {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
+            border-radius: 15px; padding: 15px; margin-bottom: 20px; text-align: center;
+        }
+        .features { display: grid; gap: 12px; }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
+            border-radius: 18px; padding: 15px; display: flex; align-items: center;
+            transition: 0.3s; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .feature-card:active { transform: scale(0.95); background: rgba(255,255,255,0.25); }
+        .icon { font-size: 30px; margin-right: 15px; }
+        .title { font-weight: bold; font-size: 16px; }
+        .desc { font-size: 12px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">🤖</div>
+        <h1>AcoderMbot</h1>
+    </div>
+
+    <div class="user-info">
+        <h3 id="userName">Yuklanmoqda...</h3>
+    </div>
+
+    <div class="features">
+        <div class="feature-card" onclick="selectService('IMG2PDF')">
+            <div class="icon">🖼️</div>
+            <div><div class="title">Rasm → PDF</div><div class="desc">Rasmlarni PDF-ga aylantirish</div></div>
+        </div>
+        <div class="feature-card" onclick="selectService('PDF2WORD')">
+            <div class="icon">📄</div>
+            <div><div class="title">PDF → DOCX</div><div class="desc">PDF-ni Word-ga aylantirish</div></div>
+        </div>
+        <div class="feature-card" onclick="selectService('PDF_MERGE')">
+            <div class="icon">🔗</div>
+            <div><div class="title">PDF Birlashtirish</div><div class="desc">PDF-larni birlashtirish</div></div>
+        </div>
+        <div class="feature-card" onclick="selectService('PDF_SPLIT')">
+            <div class="icon">✂️</div>
+            <div><div class="title">PDF Bo'lish</div><div class="desc">Sahifalarni ajratib olish</div></div>
+        </div>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        if (tg.initDataUnsafe.user) {
+            document.getElementById('userName').textContent = "Salom, " + tg.initDataUnsafe.user.first_name;
+        }
+
+        function selectService(code) {
+            tg.sendData(code); // Botga 'IMG2PDF' kabi matn yuboradi
+            tg.close();
+        }
+    </script>
+</body>
+</html>
